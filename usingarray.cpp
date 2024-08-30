@@ -1,65 +1,70 @@
-#include<iostream>
-#include<conio.h>
-#include<stdlib.h>
+#include <iostream>
 using namespace std;
-class queue {
+
+class Queue {
 private:
-    int queue1[5];
+    int queue[5];
     int rear, front;
+
 public:
-    queue() {
-        rear = -1;
-        front = -1;
-    }
+    Queue() : rear(-1), front(-1) {}
+
     void insert(int x) {
-        if (rear >= 4) {
-            cout << "Queue overflow" <<endl;
-            return;
+        if (rear == 4) {
+            cout << "Queue overflow\n";
+        } else {
+            queue[++rear] = x;
+            cout << "Inserted " << x << endl;
         }
-        queue1[++rear] = x;
-        cout << "Inserted " << x << endl;
     }
+
     void del() {
         if (front == rear) {
-            cout << "Queue underflow" << endl;
-            return;
+            cout << "Queue underflow\n";
+        } else {
+            cout << "Deleted " << queue[++front] << endl;
         }
-
-        cout << "Deleted " << queue1[++front] << endl;
     }
-    void display() {
-        if (rear == front) {
-            cout << "Queue is empty" << endl;
-            return;
-        }
 
-        for (int i = front + 1; i <= rear; i++) {
-            cout << queue1[i] << " ";
+    void display() {
+        if (front == rear) {
+            cout << "Queue is empty\n";
+        } else {
+            for (int i = front + 1; i <= rear; ++i) {
+                cout << queue[i] << " ";
+            }
+            cout << endl;
         }
-        cout << endl;
     }
 };
+
 int main() {
-    int ch;
-    queue qu;
-    while (1) {
+    Queue qu;
+    int choice, value;
+
+    do {
         cout << "\n1. Insert\n2. Delete\n3. Display\n4. Exit\nEnter your choice: ";
-        cin >> ch;
-        switch (ch) {
-        case 1:
-            cout << "Enter the element: ";
-            cin >> ch;
-            qu.insert(ch);
-            break;
-        case 2:
-            qu.del();
-            break;
-        case 3:
-            qu.display();
-            break;
-        case 4:
-            exit(0);
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter the element: ";
+                cin >> value;
+                qu.insert(value);
+                break;
+            case 2:
+                qu.del();
+                break;
+            case 3:
+                qu.display();
+                break;
+            case 4:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice, try again.\n";
         }
-    }
+    } while (choice != 4);
+
     return 0;
 }
